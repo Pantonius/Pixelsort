@@ -1,7 +1,7 @@
 var imageData;
 
 var minWidth = 2;
-var maxWidth = imageData.width / 10;
+var maxWidth;
 
 function getIndex(x, y) {
   if(x < 0 || y < 0 || x > imageData.width-1 || y > imageData.height-1) {
@@ -14,6 +14,10 @@ function getIndex(x, y) {
 function pixelsort() {
   let pixels = [];
   imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+  if(!maxWidth) {
+    maxWidth = imageData.width / 10;
+  }
 
   for(let i = 0; i < imageData.data.length; i += 4) {
     let r = imageData.data[i];
