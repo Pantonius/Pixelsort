@@ -10,6 +10,7 @@ const fileInputBtn = document.getElementById('inputBtn');
 
 document.addEventListener('dragenter', () => { dropbox.style.display = 'block'; }, false);
 document.addEventListener('dragover', drag, false);
+dropbox.addEventListener('dragleave', () => { dropbox.style.display = 'none'; }, false)
 dropbox.addEventListener('drop', drop, false);
 
 fileInputBtn.addEventListener('click', () => { if(fileInput) fileInput.click(); }, false);
