@@ -34,6 +34,16 @@ let pixelsort;
 const refreshBtn = document.getElementById('refreshBtn');
 refreshBtn.addEventListener('click', () => { if(img) draw(img); });
 
+const saveBtn = document.getElementById('saveBtn');
+saveBtn.addEventListener('click', () => {
+  if(img) {
+    var a = document.createElement('a');
+    a.download = 'pixelsort.png';
+    a.href = canvas.toDataURL();
+    a.click();
+  }
+});
+
 document.addEventListener('mousedown', (e) => { console.log(e.offsetX + ' ' + e.offsetY) })
 
 function drag(e) {
