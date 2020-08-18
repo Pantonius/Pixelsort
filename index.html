@@ -17,6 +17,30 @@
     <div id="overlay">
       <input type="file" name="file" accept="image/*">
       <button class="material-icons" id="inputBtn">folder</button>
+      <button class="material-icons" id="refreshBtn">refresh</button>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Min</th>
+            <th>Max</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><input type="number" min="0" max="255" class="red min" value="0"></th>
+            <th><input type="number" min="0" max="255" class="red max" value="255"></th>
+          </tr>
+          <tr>
+            <th><input type="number" min="0" max="255" class="green min" value="0"></th>
+            <th><input type="number" min="0" max="255" class="green max" value="255"></th>
+          </tr>
+          <tr>
+            <th><input type="number" min="0" max="255" class="blue min" value="0"></th>
+            <th><input type="number" min="0" max="255" class="blue max" value="255"></th>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <canvas></canvas>
   </body>

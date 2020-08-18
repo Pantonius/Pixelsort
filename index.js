@@ -1,20 +1,40 @@
-var dropbox = document.getElementById('overlay');
-var input = document.querySelector('input');
-var inputBtn = document.getElementById('inputBtn');
-
-var canvas = document.querySelector('canvas');
+const canvas = document.querySelector('canvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-var ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d');
+
+const dropbox = document.getElementById('overlay');
+const fileInput = document.querySelector('input[type=file]')
+const fileInputBtn = document.getElementById('inputBtn');
 
 dropbox.addEventListener('dragenter', drag, false);
 dropbox.addEventListener('dragover', drag, false);
 dropbox.addEventListener('drop', drop, false);
 
-input.addEventListener('change', handleFiles, false)
+fileInputBtn.addEventListener('click', () => { if(fileInput) fileInput.click(); }, false);
+fileInput.addEventListener('change', handleFiles, false);
 
-inputBtn.addEventListener('click', () => { if(input) input.click(); }, false);
+const minMaxInputs = document.querySelectorAll('input[type=number]');
+for(input of minMaxInputs) {
+  input.addEventListener('change', handleMinMax);
+}
+
+const redMin = document.getElementsByClassName('red min')[0];
+const redMax = document.getElementsByClassName('red max')[0];
+const greenMin = document.getElementsByClassName('green min')[0];
+const greenMax = document.getElementsByClassName('green max')[0];
+const blueMin = document.getElementsByClassName('blue min')[0];
+const blueMax = document.getElementsByClassName('blue max')[0];
+
+let img;
+let imageData;
+let pixelsort;
+
+const refreshBtn = document.getElementById('refreshBtn');
+refreshBtn.addEventListener('click', () => { if(img) draw(img); });
+
+document.addEventListener('mousedown', (e) => { console.log(e.offsetX + ' ' + e.offsetY) })
 
 function drag(e) {
   e.stopPropagation();
@@ -41,7 +61,7 @@ function handleFiles(files) {
     if(file.type.startsWith("image/")) {
       img = new Image();
       img.addEventListener('load', e => {
-        draw(img);
+        setup();
       });
 
       const reader = new FileReader();
@@ -55,7 +75,14 @@ function handleFiles(files) {
   }
 }
 
-function setupCanvas(img) {
+function handleMinMax(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  //refreshBtn.click();
+}
+
+function setupCanvas() {
   ctx.save();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -70,8 +97,26 @@ function setupCanvas(img) {
   ctx.restore();
 }
 
-function draw(img) {
-  setupCanvas(img);
+function setup() {
+  setupCanvas();
   ctx.drawImage(img, 0, 0);
-  ctx.putImageData(pixelsort(), 0, 0);
+  imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  draw();
+}
+
+function draw() {
+  if(imageData) {
+    pixelsort = new Pixelsort(imageData);
+    pixelsort.colorChannel.red.min = redMin.value;
+    pixelsort.colorChannel.red.max = redMax.value;
+    pixelsort.colorChannel.green.min = greenMin.value;
+    pixelsort.colorChannel.green.max = greenMax.value;
+    pixelsort.colorChannel.blue.min = blueMin.value;
+    pixelsort.colorChannel.blue.max = blueMax.value;
+    pixelsort.sort();
+
+    pixelsort.loadImageData().then((imageData) => {
+      ctx.putImageData(imageData, 0, 0);
+    });
+  }
 }

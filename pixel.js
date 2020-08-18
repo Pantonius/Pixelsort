@@ -4,8 +4,6 @@ class Pixel {
     this.g = g;
     this.b = b;
     this.a = a;
-
-    this.isEdge = false;
   }
 
   grayscale() {
