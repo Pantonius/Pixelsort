@@ -8,8 +8,8 @@ const dropbox = document.getElementById('overlay');
 const fileInput = document.querySelector('input[type=file]')
 const fileInputBtn = document.getElementById('inputBtn');
 
-dropbox.addEventListener('dragenter', drag, false);
-dropbox.addEventListener('dragover', drag, false);
+document.addEventListener('dragenter', () => { dropbox.style.display = 'block'; }, false);
+document.addEventListener('dragover', drag, false);
 dropbox.addEventListener('drop', drop, false);
 
 fileInputBtn.addEventListener('click', () => { if(fileInput) fileInput.click(); }, false);
@@ -59,6 +59,8 @@ function drop(e) {
   const files = datatransfer.files;
 
   handleFiles(files);
+
+  dropbox.style.display = 'none';
 }
 
 function handleFiles(files) {

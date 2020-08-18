@@ -14,11 +14,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
-    <div id="overlay">
-      <input type="file" name="file" accept="image/*">
-      <button class="material-icons" id="inputBtn">folder</button>
-      <button class="material-icons" id="refreshBtn">refresh</button>
-      <button class="material-icons" id="saveBtn">save</button>
+    <div id="overlay"></div>
+    <input type="file" name="file" accept="image/*">
+      <div id="toolbar">
+        <button class="material-icons" id="inputBtn">folder</button>
+        <button class="material-icons" id="refreshBtn">refresh</button>
+        <button class="material-icons" id="saveBtn">save</button>
+      </div>
 
       <table>
         <thead>
@@ -42,7 +44,6 @@
           </tr>
         </tbody>
       </table>
-    </div>
     <canvas></canvas>
   </body>
   <script src="index.js"></script>

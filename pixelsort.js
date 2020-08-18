@@ -63,7 +63,7 @@ class Pixelsort {
     let limit = subPixels.length;
     while(end < limit) {
       let width = Math.round(Math.random() * (this.stretch.max - this.stretch.min) + this.stretch.min);
-      let start = end;
+      let start = end +1;
 
       end += width;
 

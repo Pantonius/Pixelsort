@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+* {
+  z-index: 1;
+}
+
 html, body {
   margin: 0;
   height: 100%;
@@ -14,18 +18,35 @@ body {
 
 #overlay {
   position: fixed;
-  box-sizing: border-box;
+  display: none;
 
-  display: block;
+  background-color: rgba(255, 255, 255, .8);
+  border: 8px solid #fff;
 
   width: 100%;
   height: 100%;
 
-  padding: 2vmin;
+  z-index: 2;
+}
+
+#toolbar {
+  display: inline;
+  position: absolute;
+
+  top: 16px;
+  left: 16px;
+}
+
+canvas {
+  z-index: 0;
 }
 
 table {
-  float: right;
+  display: inline;
+  position: absolute;
+
+  top: 16px;
+  right: 16px;
 }
 
 table thead {
